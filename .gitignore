@@ -1,0 +1,10 @@
+.DS_Store
+node_modules
+npm-debug.log
+
+_assets
+
+
+# remove these if you want people to be able to run this project straight from git without the npm steps
+www/js/main.bundle.js
+www/media/main.css

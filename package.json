@@ -10,12 +10,14 @@
     "gulp-load-plugins": "^1.0.0-rc",
     "gulp-notify": "^2.2.0",
     "gulp-stylus": "^2.0.5",
+    "gulp-util": "^3.0.6",
     "jquery": "^2.1.4",
     "jstify": "^0.11.0",
     "nib": "~1.1.0",
     "react": "^0.13.3",
     "swiper": "^3.0.8",
-    "through2": "^2.0.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.2.3"
   },
   "scripts": {
     "start": "npm run dev",

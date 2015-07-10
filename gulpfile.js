@@ -1,8 +1,9 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
-var through2 = require('through2');
-
+var watchify = require('watchify');
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
 var browserSync = require('browser-sync').create();
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -15,7 +16,7 @@ var notifier = function(error){
     var message = error.message;
     var lines = error.message.split('\n');
 
-    console.log(error);
+    $.util.log(error.message);
 
     // skip double error in babelify
     if (message.match(/no writecb/i)) return;
@@ -57,28 +58,39 @@ gulp.task('css', function(){
 // JS
 ////////////////////////////////////////////////////////////////////////////////
 
+function createBundler(watch) {
+    watchify.args.debug = true;
+    var bundler = browserify('./www/js/app/main.js', watchify.args);
+
+    if (watch) {
+        bundler = watchify(bundler);
+        bundler.on('update', function(){ bundle(bundler) });
+        bundler.on('log', function(message){ $.util.log(message) });
+    }
+
+    bundler.transform('jstify');
+    bundler.transform(babelify.configure({ sourceMapRelative: 'www/js/app' }));
+
+    return bundler;
+}
+
+function bundle(bundler) {
+    $.util.log('Compiling js...');
+
+    return bundler.bundle()
+    .on('error',notifier)
+    .pipe(source('main.bundle.js'))
+    .pipe(gulp.dest('./www/js/'));
+}
+
 gulp.task('js', function(){
-
-    var browserifyStream = through2.obj(function(file, enc, next) {
-        var b = browserify({entries: [file.path], debug: true});
-
-        b.transform('jstify');
-        b.transform('babelify');
-
-        return b.bundle(function(err, res) {
-            if (err) return next(err);
-            file.contents = res;
-            next(err, file);
-        });
-    });
-
-    return gulp.src(['./www/js/app/main.js'])
-        .pipe(browserifyStream)
-        .on('error',notifier)
-        .pipe($.concat('main.bundle.js'))
-        .pipe(gulp.dest('./www/js/'));
-
+    return bundle(createBundler());
 });
+
+gulp.task('js-watch', function(){
+    return bundle(createBundler(true));
+});
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // BUILD / WATCH
@@ -86,11 +98,9 @@ gulp.task('js', function(){
 
 gulp.task('build', ['css', 'js']);
 
-gulp.task('watch', ['build'], function(){
+gulp.task('watch', ['css', 'js-watch'], function(){
 
     gulp.watch('www/media/*.styl', ['css']);
-
-    gulp.watch('www/js/app/**/*', ['js']);
 
     gulp.watch([
         'www/*.html',

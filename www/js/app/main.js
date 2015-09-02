@@ -24,5 +24,5 @@ console.log(message);
 
 
 // babel automatically parses React jsx too
-//import * as ReactExample from './ReactExample.js';
-//ReactExample.render(document.getElementById('app'));
+import * as ReactExample from './ReactExample.js';
+ReactExample.render(document.getElementById('app'));

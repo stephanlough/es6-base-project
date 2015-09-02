@@ -2,8 +2,8 @@ import React from 'react';
 
 export class MyComponent extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             clicks: 0,
         };

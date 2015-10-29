@@ -1,9 +1,9 @@
 // tons of new stuff in ES6:
 // http://babeljs.io/docs/learn-es2015/
-let burger = 'VARIABLES';
+const burger = 'INTERPOLATED VARIABLE';
 let message = `ES6 is awesome!
 Look at this multiline string
-with ${burger} in it!`
+with ${burger}s in it!`
 console.log(message);
 
 

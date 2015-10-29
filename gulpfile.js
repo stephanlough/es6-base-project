@@ -81,9 +81,9 @@ function bundle(bundler) {
     $.util.log('Compiling js...');
 
     return bundler.bundle()
-    .on('error',notifier)
-    .pipe(source('main.bundle.js'))
-    .pipe(gulp.dest('./www/js/'));
+        .on('error',notifier)
+        .pipe(source('main.bundle.js'))
+        .pipe(gulp.dest('./www/js/'));
 }
 
 gulp.task('js', function(){
@@ -116,7 +116,7 @@ gulp.task('serve', ['watch'], function(){
     browserSync.init({
         ui: false,
         ghostMode: false,
-        startPath: '#dev',
+        startPath: '?dev',
         server: { baseDir: 'www' }
     });
 });

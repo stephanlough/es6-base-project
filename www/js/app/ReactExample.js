@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 export class MyComponent extends React.Component {
 
@@ -24,7 +25,7 @@ export class MyComponent extends React.Component {
 }
 
 export function render(element) {
-    React.render(
+    ReactDOM.render(
         <div>
             <MyComponent />
             <MyComponent />

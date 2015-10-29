@@ -69,7 +69,10 @@ function createBundler(watch) {
     }
 
     bundler.transform('jstify');
-    bundler.transform(babelify.configure({ sourceMapRelative: 'www/js/app' }));
+    bundler.transform(babelify.configure({
+        sourceMapRelative: 'www/js/app',
+        optional: ['es7.classProperties'],
+    }));
 
     return bundler;
 }

@@ -5,12 +5,13 @@ export class MyComponent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            clicks: 0,
-        };
     }
 
-    handleClick(e) {
+    state = {
+        clicks: 0,
+    }
+
+    handleClick = (e) => {
         e.preventDefault();
         this.setState({clicks:this.state.clicks+1});
     }
@@ -18,7 +19,7 @@ export class MyComponent extends React.Component {
     render() {
         return (
             <div className="react-example">
-                <a href="http://google.com" onClick={(e) => this.handleClick(e)}>click</a> {this.state.clicks}
+                <a href="http://google.com" onClick={this.handleClick}>click</a> {this.state.clicks}
             </div>
         );
     }

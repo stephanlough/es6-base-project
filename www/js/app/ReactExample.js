@@ -9,12 +9,12 @@ export class MyComponent extends React.Component {
 
     state = {
         clicks: 0,
-    }
+    };
 
     handleClick = (e) => {
         e.preventDefault();
         this.setState({clicks:this.state.clicks+1});
-    }
+    };
 
     render() {
         return (

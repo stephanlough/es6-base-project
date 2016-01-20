@@ -68,10 +68,10 @@ function createBundler(watch) {
         bundler.on('log', function(message){ $.util.log(message) });
     }
 
-    bundler.transform('jstify');
     bundler.transform(babelify.configure({
         sourceMapRelative: 'www/js/app',
-        optional: ['es7.classProperties'],
+        presets: ['react', 'es2015'],
+        plugins: ['transform-class-properties'],
     }));
 
     return bundler;

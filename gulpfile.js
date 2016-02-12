@@ -117,6 +117,7 @@ gulp.task('serve', ['watch'], function(){
         ui: false,
         ghostMode: false,
         startPath: '?dev',
+        watchOptions: { ignored: /[\/\\]\./ },
         server: { baseDir: 'www' }
     });
 });

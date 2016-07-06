@@ -3,10 +3,6 @@ import ReactDOM from 'react-dom';
 
 export class MyComponent extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         clicks: 0,
     };
